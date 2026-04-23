@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none; /* hindari delay teks */
+}
+
+body {
+    background: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(30, 30, 47, 0.7);
+    backdrop-filter: blur(2px);
+    border-radius: 2rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+}
+
+header h1 {
+    color: #ffd966;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-size: 1.8rem;
+}
+header p {
+    color: #cdddee;
+    font-weight: 500;
+}
+
+.board-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+#board {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+#arrowCanvas {
+    position: absolute;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    pointer-events: none;
+}
+
+.controls {
+    background: #2c2c3a;
+    border-radius: 1.5rem;
+    padding: 1.2rem;
+    margin-top: 1rem;
+}
+
+.fen-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+#fenInput {
+    flex: 3;
+    padding: 0.7rem;
+    border-radius: 2rem;
+    border: none;
+    background: #1e1e2a;
+    color: white;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+.fen-panel button {
+    background: #3a6ea5;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.1s linear;
+    color: white;
+}
+.fen-panel button:active { transform: scale(0.97); }
+
+.settings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+    justify-content: space-between;
+}
+.setting-group {
+    background: #1e1e2a;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+}
+.setting-group label {
+    font-weight: bold;
+    color: #ffd966;
+}
+select, input[type="range"] {
+    background: #0f0f17;
+    color: white;
+    border: 1px solid #4a6a8a;
+    border-radius: 1rem;
+    padding: 0.3rem 0.6rem;
+}
+#eloValue {
+    background: #00000055;
+    padding: 0.2rem 0.6rem;
+    border-radius: 1rem;
+    font-weight: bold;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.action-buttons button {
+    flex: 1;
+    background: #5a4a2e;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 3rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+button.primary {
+    background: #2c7a4d;
+    box-shadow: 0 4px 0 #1b4d30;
+}
+button:active { transform: translateY(1px); }
+
+.analysis-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+.analysis-card {
+    background: #1e1e2c;
+    border-radius: 1.2rem;
+    padding: 1rem;
+    flex: 1;
+    min-width: 200px;
+}
+.analysis-card h3 {
+    color: #ffd966;
+    margin-bottom: 0.5rem;
+}
+#bestMoveDisplay { font-size: 1.4rem; font-family: monospace; font-weight: bold; color: #8eff9e; }
+#evalDisplay { font-family: monospace; font-size: 1rem; }
+pre {
+    background: #0b0b12;
+    padding: 0.8rem;
+    border-radius: 1rem;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    color: #bbccff;
+}
+footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: #88aacc;
+    font-size: 0.75rem;
+}
+@media (max-width: 700px) {
+    .app-container { padding: 0.8rem; }
+    .setting-group { flex-wrap: wrap; }
+}
