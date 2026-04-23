@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Chess Analyze Next Move | AI Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1e2f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Chessboard & jQuery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
+    <!-- Chess.js untuk logika -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>♞ DeepChess Analyzer</h1>
+            <p>AI Next Move + Arrow | Multi-Engine | Atur Elo</p>
+        </header>
+
+        <div class="board-wrapper">
+            <div id="board" style="width: 100%; max-width: 600px; margin: 0 auto;"></div>
+            <canvas id="arrowCanvas" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
+        </div>
+
+        <div class="controls">
+            <div class="fen-panel">
+                <input type="text" id="fenInput" placeholder="FEN string..." value="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1">
+                <button id="setFenBtn">↺ Set Posisi</button>
+                <button id="resetBoardBtn">⟳ Awal</button>
+            </div>
+
+            <div class="settings">
+                <div class="setting-group">
+                    <label>⚙️ Engine:</label>
+                    <select id="engineSelect">
+                        <option value="stockfish16">Stockfish 16 (wasm)</option>
+                        <option value="stockfish17">Stockfish 17 (wasm)</option>
+                        <option value="stockfish18">Stockfish 18 (beta)</option>
+                        <option value="lc0">Leela Chess Zero (Lc0) *via Stockfish+</option>
+                        <option value="komodo">Komodo Dragon *via Stockfish+</option>
+                        <option value="torch">Torch *via Stockfish+</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>🎯 Elo (Skill):</label>
+                    <input type="range" id="eloSlider" min="500" max="3000" step="50" value="2000">
+                    <span id="eloValue">2000</span>
+                </div>
+                <div class="setting-group">
+                    <label>🔍 Kedalaman (Depth):</label>
+                    <select id="depthSelect">
+                        <option value="12">Cepat (12)</option>
+                        <option value="16" selected>Seimbang (16)</option>
+                        <option value="20">Mendalam (20)</option>
+                        <option value="24">High Engine (24)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="analyzeBtn" class="primary">🔮 Prediksi Next Move + Arrow</button>
+                <button id="fullAnalyzeBtn">📊 Full Analisis</button>
+            </div>
+
+            <div class="analysis-panel">
+                <div class="analysis-card">
+                    <h3>📈 Best Move & Arrow</h3>
+                    <div id="bestMoveDisplay">-</div>
+                    <div id="evalDisplay">Evaluasi: -</div>
+                    <div id="openingName">🏷️ Opening: -</div>
+                </div>
+                <div class="analysis-card">
+                    <h3>🧠 Full Analysis (Line)</h3>
+                    <pre id="fullAnalysis">Klik "Full Analisis" untuk melihat variasi terbaik</pre>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>⚡ Engine berjalan lokal via Web Worker | PWA siap install sebagai APK</p>
+            <p>⚠️ Lc0, Komodo, Torch versi demo menggunakan Stockfish+parameter (full support segera)</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Register Service Worker untuk PWA & cache
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js').then(reg => console.log('SW registered', reg)).catch(err => console.log('SW failed', err));
+        }
+    </script>
+</body>
+</html>
